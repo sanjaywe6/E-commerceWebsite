@@ -1,0 +1,60 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}
+Products
+{% endblock %}
+
+{% block cssLink %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<div style="padding: 100px 10px;">
+
+    <div class="container">
+
+        <div>
+
+            <form class="d-flex bg-secondary" role="search"
+                style="padding: 20px; border: 1px solid black; border-radius: 7px;">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-warning" type="submit">Filter</button>
+            </form>
+
+        </div>
+
+        <div>
+
+            {% if products %}
+
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; padding: 20px;">
+                {% for item in products %}
+
+                <div class="card mx-2 my-2" style="width: 18rem;">
+                    <img src="/media/{{products.0.image}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{products.0.title|slice:":60"}}</h5>
+                        <p class="card-text h5">Price: <i class="fa fa-rupee h-6"></i>{{products.0.price}}</p>
+                        <a href="/allProduct/{{products.0.id}}" class="btn btn-info w-100">View</a>
+                    </div>
+                </div>
+
+
+                {% endfor %}
+            </div>
+
+            {% else %}
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

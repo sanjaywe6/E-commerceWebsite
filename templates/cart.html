@@ -1,0 +1,98 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block cssLink %}
+{% static 'css/cart.css' %}
+{% endblock %}
+
+{% block active_cart %}
+activeNav
+{% endblock %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+
+<div class="container" id="cart_cantainer">
+    <div id="all_cart_products">
+        {% if cart_products %}
+        {% for val in cart_products %}
+        <div style="display: flex; justify-content: center;">
+            <div class="card mb-3 cart_prod_div">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/media/{{val.0.image}}" class="img-fluid rounded-start" alt="Loading..">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-title text-primary h6">{{val.0.title}}</p>
+                            <p class="card-text"><b>Price: <i class="fa fa-rupee"></i> {{val.0.price}}</b> </p>
+                            <p class="card-text">Quantity <b> {{val.1}} </b> </p>
+                            <p class="card-text"><small class="text-body-secondary">Updated on {{val.0.time}}</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="product_btns">
+                    <button class="btn btn-warning my-2 remove_item" data-prod_id="{{val.0.id}}"
+                        data-operation="remove"><i class="far fa-trash-alt"></i> Remove from Cart</button>
+                    <button class="btn btn-danger my-2"><i class="fas fas fa-luggage-cart"></i> Buy Now</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+
+        <div>
+            <div class="main_cart_box">
+                <div class="cart_box">
+                    <div class="cart_data_box">
+                        <i class="fas fa-tablet-alt" style="font-size: 200px;"></i>
+                        <div class="my-4">
+                            <h2 style="display: flex; justify-content:center;"><i class="fas fa-battery-empty mx-3"
+                                    style="color: red; font-size:45px;"></i>Empty Cart</h2>
+                            <div style="display: flex; justify-content:center;">
+                                <a href="/" type="button" class="btn btn-danger">Add Items to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        {% endif %}
+    </div>
+
+</div>
+
+{% else %}
+
+<div>
+    <div class="main_cart_box">
+        <div class="cart_box">
+            <div class="cart_data_box">
+                <i class="fas fa-tablet-alt" style="font-size: 200px;"></i>
+                <div class="my-4">
+                    <h2 style="display: flex; justify-content:center;"><i class="fas fa-battery-empty mx-3"
+                            style="color: red; font-size:45px;"></i>Empty Cart</h2>
+                    <div style="display: flex; justify-content:center;">
+                        <a href="/login/" type="button" class="btn btn-danger">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block jsLink %}
+{% static 'js/cart.js' %}
+{% endblock %}

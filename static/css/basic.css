@@ -1,0 +1,29 @@
+/* css for navigation bar */
+.myNav {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    z-index: 1000;
+    background-color: #000000;
+}
+
+.navLinks {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    padding: 5px;
+    border: 1 px solid transparent;
+    border-radius: 7px;
+}
+
+.navLinks:hover {
+    background-color: black;
+    color: white;
+    text-decoration-color: red;
+    border-color: black;
+}
+
+.activeNav {
+    background-color: rgb(92, 92, 92);
+    color: white;
+}

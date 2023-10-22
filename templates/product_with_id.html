@@ -1,0 +1,162 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}
+Product
+{% endblock %}
+
+{% block cssLink %}
+{% static 'css/product_with_id.css' %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container" style="padding: 100px 10px;">
+
+    <div class="product_container">
+
+        <div>
+            <div>
+                <div class="product_img_cont">
+                    <img src="/media/{{product.image}}" alt="">
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    {% if user.is_authenticated %}
+                    <button class="btn btn-warning mx-2 my-2" id="add_to_cart" data-prod_id="{{product.id}}"
+                        data-operation="add"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    {% else %}
+                    <a type="button" href="/login/" class="btn btn-warning mx-2 my-2"><i class="fas fa-cart-plus"></i> Login</a>
+                    {% endif %}
+                    <button class="btn btn-info mx-2 my-2"><i class="fas fas fa-luggage-cart"></i> Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product_data">
+
+            <p class="text-primary h5">{{product.title}}</p>
+            <p class="text-success h6">Special Price</p>
+            <p class="text-dark h4">Price: <i class="fa fa-rupee h-6"></i>{{product.price}}</p>
+            <h5 class="text-danger">About Product</h5>
+            <p class="text-dark">{{product.desc}}</p>
+
+            
+            <div class="product_comment my-4"
+            style="padding: 10px; background-color: rgb(182, 182, 182); border: 1px solid black; border-radius: 7px;">
+            <h5 class="text-danger">Comments:</h5>
+                {% if user.is_authenticated %}
+                <form id="comment_form">
+                    {% csrf_token %}
+                    <div class="form-floating">
+                        <input type="hidden" value="{{product.id}}" id="product_id">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="input_comment"></textarea>
+                        <label for="input_comment"><b><i class="fas fa-user-alt text-primary"></i>
+                                {{user.username}}</b></label>
+                    </div>
+
+                    <div class="my-2" style="display: flex; justify-content: flex-end;">
+                        <button type="submit" class="btn btn-success">Comment</button>
+                    </div>
+                </form>
+
+                {% else %}
+                
+                <form>
+                    <div class="form-floating">
+                        <input type="hidden" value="{{product.id}}" id="product_id">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="input_comment"></textarea>
+                        <label for="input_comment"><b><i class="fas fa-user-alt text-primary"></i>
+                                Login</b></label>
+                    </div>
+
+                    <div class="my-2" style="display: flex; justify-content: flex-end;">
+                        <a href="/login/" class="btn btn-success" type="button">Login to Comment</a>
+                    </div>
+                </form>
+
+                {% endif %}
+
+                <div class="all_comments" id="all_comments">
+
+                    <div>
+
+                        {% for comment in comments %}
+
+                        <div class="card my-2">
+                            <h5 class="card-header"><i class="fas fa-user-alt text-danger"></i> {{comment.usrname}}</h5>
+                            <div class="card-body">
+                                <p class="card-text">{{comment.comment}}</p>
+                            </div>
+                            <div class="my-2 mx-2" style="display: flex; justify-content: flex-end;">
+                                <small><b>{{comment.time}}</b></small>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="same_products">
+    <div class="my-2" style="width: 100%; display: flex; justify-content: flex-end;">
+
+    </div>
+    <div
+        style="padding: 20px; background-color: rgb(199, 199, 199); margin: 10px; border: 1px solid black; border-radius: 7px; box-shadow: 10px 10px 10px black;">
+        <div style="display: flex; justify-content: space-between;">
+            <h4>Best of Student Laptops</h4>
+            <a type="button" class="btn btn-danger mx-2" href="/products/{{product.category}}">View All</a>
+        </div>
+        <div style="display: flex; justify-content: flex-start; align-items: start; overflow: hidden;">
+            {% for item in same_products|slice:":10" %}
+
+            <div class="card" style="width: 30rem; min-width: 250px; margin: 20px;">
+                <img src="/media/{{item.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" style="display: flex; justify-content: center; align-items: center;">
+                        <pre>From <i class="fa fa-rupee"></i>{{item.price}}</pre>
+                    </h5>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <a href="/allProduct/{{item.id}}" class="btn btn-primary mx-2">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div id="alert_message" style="display: none;">
+    <div class="bg-danger" style="
+  display: flex; 
+  justify-content: space-around; 
+  border: 1px solid black; 
+  box-shadow: 0px 0px 10px rgb(115, 115, 115);
+  border-radius: 7px;
+  max-width: 300px;
+  position: fixed;
+  bottom: 20%;
+  right: 10px;
+  padding: 10px;">
+        <strong style="margin: 5px;" class="text-light" id="msg_text"></strong>
+        <i class="fa fa-arrow-right text-light h4" style="cursor: pointer;"
+            onclick="this.parentElement.style.display='none';">
+        </i>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{%block jsLink %}
+{% static 'js/product_with_id.js' %}
+{% endblock %}

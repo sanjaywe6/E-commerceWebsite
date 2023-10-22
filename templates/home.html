@@ -1,0 +1,159 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block cssLink %}
+{% static 'css/home.css' %}
+{% endblock %}
+
+{% block active_home %}
+activeNav
+{% endblock %}
+
+{% block body %}
+<div class="baseImage">
+
+  <div class="card text-bg-dark">
+    <img src="{% static 'img/banner.jpg' %}" class="card-img" alt="..." style="opacity: 60%;">
+    <div class="card-img-overlay" style="display: flex; align-items: center; justify-content: center;">
+      <div style="padding: 20px;">
+        <hp class="display-1" style="display: flex; justify-content: center; text-align: center;">Boost your gaming
+          world with us...</hp>
+        <p class="card-text text-info" style="display: flex; justify-content: center; text-align: center;">Lorem ipsum
+          dolor sit amet consectetur, adipisicing elit. Nam nihil sequi optio totam quod odit aliquid ab rem sapiente
+          non doloremque est distinctio, dicta ex ut omnis quis. Molestias corrupti voluptates harum nesciunt? Sint
+          impedit perferendis eum accusantium earum aspernatur explicabo labore quod. Veritati</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <div class="our_facility_div">
+    <div class="our_facility_cont">
+
+      <div class="our_facility bg-light">
+        <div>
+          <a href="#">
+            <i class="h1 fas fa-car-side text-dark"></i>
+            <p class="text-danger">WORLD WIDE DELIVERY</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="our_facility bg-light">
+        <div>
+          <a href="#">
+            <i class="h1 fas fa-user-lock text-dark"></i>
+            <p class="text-danger">SECURE PAYMENTS</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="our_facility bg-light">
+        <div>
+          <a href="#">
+            <i class="h1 fas fa-retweet text-dark"></i>
+            <p class="text-danger">SIMPLE RETURNS</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="products">
+
+  <div class="student_laptop my-4">
+    <div class="my-2" style="width: 100%; display: flex; justify-content: flex-end;">
+    </div>
+    <div style="padding: 20px; background-color: rgb(199, 199, 199); margin: 10px; border: 1px solid black; border-radius: 7px; box-shadow: 10px 10px 10px black;">
+      <div style="display: flex; justify-content: space-between;">
+        <h4>Best of Student Laptops</h4>
+        <a type="button" class="btn btn-danger mx-2" href="/products/Student">View All</a>
+      </div>
+      <div
+        style="display: flex; justify-content: flex-start; align-items: start; overflow: hidden;">
+        {% for item in student_laptop|slice:":10" %}
+
+        <div class="card" style="width: 30rem; min-width: 250px; margin: 20px;">
+          <img src="/media/{{item.image}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title" style="display: flex; justify-content: center; align-items: center;">
+              <pre>From <i class="fa fa-rupee"></i>{{item.price}}</pre>
+            </h5>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <a href="/allProduct/{{item.id}}" class="btn btn-primary mx-2">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}      <a type="button" class="btn btn-danger mx-2" href="/products/Business">View All</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="business_laptop my-4">
+    <div class="my-2" style="width: 100%; display: flex; justify-content: flex-end;">
+    </div>
+    <div style="padding: 20px; background-color: rgb(199, 199, 199); margin: 10px; border: 1px solid black; border-radius: 7px; box-shadow: 10px 10px 10px black;">
+      <div style="display: flex; justify-content: space-between;">
+        <h4>Best of Business Laptops</h4>
+        <a type="button" class="btn btn-danger mx-2" href="/products/Business">View All</a>
+      </div>
+      <div
+        style="display: flex; justify-content: flex-start; align-items: start; overflow: hidden;">
+        {% for item in business_laptop|slice:":10" %}
+
+        <div class="card" style="width: 30rem; min-width: 250px; margin: 20px;">
+          <img src="/media/{{item.image}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title" style="display: flex; justify-content: center; align-items: center;">
+              <pre>From <i class="fa fa-rupee"></i>{{item.price}}</pre>
+            </h5>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <a href="/allProduct/{{item.id}}" class="btn btn-primary mx-2">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="gaming_laptop my-4">
+    <div class="my-2" style="width: 100%; display: flex; justify-content: flex-end;">
+    </div>
+    <div style="padding: 20px; background-color: rgb(199, 199, 199); margin: 10px; border: 1px solid black; border-radius: 7px; box-shadow: 10px 10px 10px black;">
+      <div style="display: flex; justify-content: space-between;">
+        <h4>Best of Gaming Laptops</h4>
+        <a type="button" class="btn btn-danger mx-2" href="/products/Gaming">View All</a>
+      </div>
+      <div
+        style="display: flex; justify-content: flex-start; align-items: start; overflow: hidden;">
+        {% for item in gaming_laptop|slice:":10" %}
+
+        <div class="card" style="width: 30rem; min-width: 250px; margin: 20px;">
+          <img src="/media/{{item.image}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title" style="display: flex; justify-content: center; align-items: center;">
+              <pre>From <i class="fa fa-rupee"></i>{{item.price}}</pre>
+            </h5>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <a href="/allProduct/{{item.id}}" class="btn btn-primary mx-2">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

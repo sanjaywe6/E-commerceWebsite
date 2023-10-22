@@ -1,0 +1,131 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}
+Login Page
+{% endblock %}
+
+{% block cssLink %}
+{% static 'css/login.css' %}
+{% endblock %}
+
+{% block active_login %}
+activeNav
+{% endblock %}
+
+{% block body %}
+
+
+
+{% if messages %}
+{% for message in messages %}
+
+<div class="bg-{{message.tags}}" style="
+  display: flex; 
+  justify-content: space-around; 
+  border: 1px solid black; 
+  box-shadow: 0px 0px 10px rgb(115, 115, 115);
+  border-radius: 7px;
+  max-width: 300px;
+  position: fixed;
+  bottom: 20%;
+  right: 10px;
+  padding: 10px;">
+    <strong style="margin: 5px;" class="text-light">{{message}}</strong>
+    <i class="fa fa-arrow-right text-light h4" style="cursor: pointer;"
+        onclick="this.parentElement.style.display='none';">
+    </i>
+
+</div>
+
+{% endfor %}
+{% endif %}
+
+
+{% if user.is_authenticated %}
+
+<div>
+    <div class="main_cart_box">
+        <div class="cart_box">
+            <div class="cart_data_box">
+                <i class="fas fa-tablet-alt" style="font-size: 200px;"></i>
+                <div class="my-4">
+                    <h2 style="display: flex; justify-content:center;">You already have Logged in..</h2>
+                    <div style="display: flex; justify-content:center;">
+                        <a href="/" type="button" class="btn btn-danger">Go to home page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div>
+    <div class="main_cart_box">
+        <div class="cart_box">
+            <div class="cart_data_box">
+                <img src="{% static 'img/user/profile.png' %}" alt="Loading.." id="proImg" class="formBlock my-2" style="
+              width: 270px;
+              border: 2px solid rgb(34, 255, 34);
+              border-radius: 135px;
+              box-shadow: 0px 0px 10px rgb(128, 126, 126);
+              margin: 10px;
+            " />
+                <div class="formBlock my-2" style="display: inline-block; margin: 10px">
+                    <div class="loginHead" style="width: 100%; display: inline-flex; justify-content: center">
+                        <h2 style="display: flex; align-items:center;"><i class="fas fa-user-lock mx-3"
+                                style="color: red; font-size:45px;"></i>Login form</h2>
+                    </div>
+                    <form action="/login/" method="post">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label for="inputUsrname" class="col-sm-3 col-form-label">Username</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputUsrname" name="inputUsername"
+                                    placeholder="Enter your username" required/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="passwd" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="passwd" name="passwd"  
+                                placeholder="Enter your password" required/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h6 class="mx-2 my-2"><b>Enter captcha (Captcha is case sensitive)</b></h6>
+                            <div class="cpatcha_img" style="display: flex;justify-content: center;flex-wrap: wrap;">
+                                <div class="mx-2 my-2">
+                                    <img src="/media/{{captcha.image}}" alt="">
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <input type="text" maxlength="5" minlength="4" id="captcha_value"
+                                        name="captcha_value"
+                                        style="max-width: 150px; height: 40px;border: 1px solid black; border-radius: 7px; text-align: center;"
+                                        class="mx-2 my-2" placeholder="Enter Captcha" required>
+                                    <input type="hidden" id="captcha_id" name="captcha_id" value="{{captcha.sno}}">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="margin-top:2px; flex-wrap:wrap">
+                            <button type="submit" class="my-2 btn btn-primary my-4">Log In</button>
+                            <a href="/" class="mx-2 my-2 btn btn-danger">Back to Home Page</a>
+                        </div>
+
+
+                    </form>
+
+
+                    <p>Don't have account? <a href="/signup/">Signup here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
